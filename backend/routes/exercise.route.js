@@ -16,10 +16,10 @@ module.exports = (params) => {
   // add exercise
   router.route('/add').post((req, res) => {
     const { username, description } = req.body;
-    const duration = number(req.body.duration);
+    const duration = Number(req.body.duration);
     const date = Date.parse(req.body.date);
 
-    const newExercise = new Exercise(username, description, duration, date);
+    const newExercise = new Exercise({ username, description, duration, date });
 
     // save to db
     newExercise
@@ -29,7 +29,7 @@ module.exports = (params) => {
           msg: 'exercise added!',
           exercise,
         };
-        res.json(`exercise added!`);
+        res.json(context);
       })
       .catch((err) => {
         res.status(400).json(`error: ${err}`);
