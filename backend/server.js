@@ -15,9 +15,11 @@ app.use(express.json()); // allow to parse json data
 // Database settings
 const DB_URI = process.env.DB_URI;
 
-mongoose.connect(DB_URI, (err) => {
-  console.log('Mongo DB connection', err);
-});
+try {
+  mongoose.connect(DB_URI);
+} catch (err) {
+  console.log(`Mongo DB connection failed ${err}`);
+}
 
 const connection = mongoose.connection;
 // once the connection is open then
