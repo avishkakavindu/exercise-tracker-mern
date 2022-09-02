@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const exerciseSchema = new Schema(
   {
-    username: { type: string, required: true },
-    description: { type: string, required: true },
-    duration: { type: number, required: true },
-    data: { type: Date, required: true },
+    username: { type: String, required: true },
+    description: { type: String, required: true },
+    duration: { type: Number, required: true },
+    date: { type: Date, required: true },
   },
   {
     timestamps: true,

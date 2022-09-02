@@ -1,4 +1,4 @@
-const express = require('express').Router();
+const router = require('express').Router();
 const User = require('../models/user.model');
 
 module.exports = (params) => {
@@ -21,8 +21,12 @@ module.exports = (params) => {
     // save user to db
     newUser
       .save()
-      .then(() => {
-        res.json('user added!');
+      .then((user) => {
+        const context = {
+          msg: 'user added!',
+          user: user,
+        };
+        res.json(context);
       })
       .catch((err) => {
         res.status(400).json(`error: ${err}`);
