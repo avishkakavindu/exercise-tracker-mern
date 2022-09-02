@@ -14,17 +14,21 @@ module.exports = (params) => {
   });
 
   // add exercise
-  router.route('/').post((req, res) => {
+  router.route('/add').post((req, res) => {
     const { username, description } = req.body;
     const duration = number(req.body.duration);
     const date = Date.parse(req.body.date);
 
-    // save to db
     const newExercise = new Exercise(username, description, duration, date);
 
+    // save to db
     newExercise
       .save()
-      .then(() => {
+      .then((exercise) => {
+        const context = {
+          msg: 'exercise added!',
+          exercise,
+        };
         res.json(`exercise added!`);
       })
       .catch((err) => {

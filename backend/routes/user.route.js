@@ -15,7 +15,9 @@ module.exports = (params) => {
 
   // add user
   router.route('/add').post((req, res) => {
+    console.log('here', req.body);
     const username = req.body.username;
+    console.log(username);
 
     const newUser = new User({ username });
     // save user to db
@@ -24,12 +26,12 @@ module.exports = (params) => {
       .then((user) => {
         const context = {
           msg: 'user added!',
-          user: user,
+          user,
         };
-        res.json(context);
+        return res.json(context);
       })
       .catch((err) => {
-        res.status(400).json(`error: ${err}`);
+        return res.status(400).json(`error: ${err}`);
       });
   });
 
