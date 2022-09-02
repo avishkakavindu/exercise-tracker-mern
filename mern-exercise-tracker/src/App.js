@@ -15,10 +15,10 @@ function App() {
       <div className="container">
         <Navbar />
         <Routes>
-          <Route path="/exercises" component={ExerciseList} />
-          <Route path="exercises/:id" component={EditExercise} />
-          <Route path="/exercises/add" component={CreateExercise} />
-          <Route path="/users/add" component={CreateUser} />
+          <Route path="/" exactelement={<ExerciseList />} />
+          <Route path="/exercises/:id" element={<EditExercise />} />
+          <Route path="/create" element={<CreateExercise />} />
+          <Route path="/user" element={<CreateUser />} />
         </Routes>
       </div>
     </Router>
