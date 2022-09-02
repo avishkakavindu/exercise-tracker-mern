@@ -27,6 +27,13 @@ connection.once('open', () => {
   console.log('Connected to database successfully!');
 });
 
+// routes
+const exerciseRouter = require('./routes/exercise.route');
+const userRouter = require('./routes/user.route');
+
+app.use('/exercises', exerciseRouter());
+app.use('/users', userRouter());
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}...`);
 });
