@@ -36,5 +36,46 @@ module.exports = (params) => {
       });
   });
 
+  // get item by id
+  router.route('/:id').get((req, res) => {
+    Exercise.findById(req.params.id)
+      .then((exercise) => {
+        if (!exercise) {
+          res.status(404).json(`not found!`);
+        }
+        res.json(exercise);
+      })
+      .catch((err) => {
+        res.status(400).json(`error: ${err}`);
+      });
+  });
+
+  // update exercise
+  router.route('/:id').put((req, res) => {
+    console.log(req.body);
+    Exercise.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .then((exercise) => {
+        const context = {
+          msg: 'exercise record updated!',
+          exercise,
+        };
+        res.json(context);
+      })
+      .catch((err) => {
+        res.status(400).json(`error: ${err}`);
+      });
+  });
+
+  // delete exercise
+  router.route('/:id').delete((req, res) => {
+    Exercise.findByIdAndDelete(req.params.id)
+      .then(() => {
+        res.json(`Exercise record deleted!`);
+      })
+      .catch((err) => {
+        res.status(400).json(`error: ${err}`);
+      });
+  });
+
   return router;
 };
