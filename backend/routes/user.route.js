@@ -17,7 +17,6 @@ module.exports = (params) => {
   router.route('/add').post((req, res) => {
     console.log('here', req.body);
     const username = req.body.username;
-    console.log(username);
 
     const newUser = new User({ username });
     // save user to db

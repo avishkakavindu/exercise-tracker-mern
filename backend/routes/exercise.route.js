@@ -6,6 +6,7 @@ module.exports = (params) => {
   router.route('/').get((req, res) => {
     Exercise.find()
       .then((exercises) => {
+        console.log(exercises);
         res.json(exercises);
       })
       .catch((err) => {
@@ -51,8 +52,8 @@ module.exports = (params) => {
   });
 
   // update exercise
-  router.route('create/:id').put((req, res) => {
-    console.log(req.body);
+  router.route('/:id').put((req, res) => {
+    // console.log(req.body);
     Exercise.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .then((exercise) => {
         const context = {

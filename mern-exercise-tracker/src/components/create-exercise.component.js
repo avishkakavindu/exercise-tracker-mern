@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 export default class CreateExercise extends Component {
   constructor(props) {
@@ -22,8 +23,13 @@ export default class CreateExercise extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      users: ['test user'],
+    axios.get('http://127.0.0.1:5000/users').then((res) => {
+      if (res.data.length > 0) {
+        this.setState({
+          users: res.data.map((user) => user.username),
+          username: res.data[0].username, // default value
+        });
+      }
     });
   }
 
@@ -61,8 +67,14 @@ export default class CreateExercise extends Component {
       date: this.state.date,
     };
     console.log(exercise);
+
+    // send dat to backend
+    axios.post('http://127.0.0.1:5000/exercises/add', exercise).then((res) => {
+      console.log(res.data);
+    });
+
     // redirect to homepage
-    window.location = '/';
+    // window.location = '/';
   }
 
   render() {
@@ -117,11 +129,12 @@ export default class CreateExercise extends Component {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="form-group mt-1">
             <input
               type="submit"
               value="Create Exercise Log"
               className="btn btn-primary"
+              onSubmit={this.onSubmit}
             />
           </div>
         </form>
