@@ -34,16 +34,19 @@ class EditExercise extends Component {
     // get  exercise obj that need to edit
     const exercise_id = this.props.match.params.id;
 
-    axios.get(`http://127.0.0.1:5000/exercises/${exercise_id}`).then((res) => {
-      this.setState({
-        username: res.data.username,
-        description: res.data.description,
-        duration: res.data.duration,
-        date: new Date(res.data.date),
-      }).catch((err) => {
+    axios
+      .get(`http://127.0.0.1:5000/exercises/${exercise_id}`)
+      .then((res) => {
+        this.setState({
+          username: res.data.username,
+          description: res.data.description,
+          duration: res.data.duration,
+          date: new Date(res.data.date),
+        });
+      })
+      .catch((err) => {
         console.log(err);
       });
-    });
     // get users for dropdown
     axios.get('http://127.0.0.1:5000/users').then((res) => {
       if (res.data.length > 0) {
@@ -89,7 +92,8 @@ class EditExercise extends Component {
     };
 
     // send data to backend
-    const exercise_id = this.props.match.params.id
+    const exercise_id = this.props.match.params.id;
+    axios
       .put(`http://127.0.0.1:5000/exercises/${exercise_id}`, exercise)
       .then((res) => {
         console.log(res.data);
