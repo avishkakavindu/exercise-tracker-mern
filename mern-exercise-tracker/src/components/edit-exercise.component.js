@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-export default class EditExercise extends Component {
+export function withRouter(Children) {
+  return (props) => {
+    const match = { params: useParams() };
+    return <Children {...props} match={match} />;
+  };
+}
+
+class EditExercise extends Component {
   constructor(props) {
     super(props);
 
@@ -79,7 +87,6 @@ export default class EditExercise extends Component {
       duration: this.state.duration,
       date: this.state.date,
     };
-    console.log(exercise);
 
     // send data to backend
     const exercise_id = this.props.match.params.id
@@ -157,3 +164,4 @@ export default class EditExercise extends Component {
     );
   }
 }
+export default withRouter(EditExercise);

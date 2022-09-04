@@ -12,7 +12,7 @@ const Exercise = (props) => {
       <td>
         <Link
           className="btn btn-warning me-1"
-          to={`/edit/${props.exercise._id}`}
+          to={`/exercises/${props.exercise._id}`}
         >
           edit
         </Link>
@@ -47,9 +47,7 @@ export default class ExerciseList extends Component {
       .get('http://127.0.0.1:5000/exercises/')
       .then((res) => {
         const exercises = res.data;
-        this.setState({ exercises }, () =>
-          console.log('set state:', this.state.exercises)
-        );
+        this.setState({ exercises });
       })
       .catch((err) => {
         console.log('ERROR ', err);
@@ -64,24 +62,22 @@ export default class ExerciseList extends Component {
     this.setState({
       exercises: this.state.exercises.filter((el) => {
         // eslint-disable-next-line no-unused-expressions
-        el._id !== id;
+        if (el._id !== id) {
+          return el;
+        }
       }),
     });
   }
 
   exerciseList() {
-    console.log('Exercise list', this.state.exercises);
     return this.state.exercises.map((exercise) => {
-      console.log('exercise:', exercise);
-      const xx = (
+      return (
         <Exercise
           exercise={exercise}
           deleteExercise={this.deleteExercise}
           key={exercise._id}
         />
       );
-      console.log(xx);
-      return xx;
     });
   }
 

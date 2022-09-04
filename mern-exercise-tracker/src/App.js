@@ -16,7 +16,7 @@ function App() {
       <div className="container">
         <Navbar />
         <Routes>
-          <Route path="/" exact element={<ExerciseList />} />
+          <Route exact path="/" element={<ExerciseList />} />
           <Route path="/exercises/:id" element={<EditExercise />} />
           <Route path="/create" element={<CreateExercise />} />
           <Route path="/user" element={<CreateUser />} />
