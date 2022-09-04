@@ -91,7 +91,7 @@ class EditExercise extends Component {
       date: this.state.date,
     };
 
-    // send data to backend
+    // send data to backend   
     const exercise_id = this.props.match.params.id;
     axios
       .put(`http://127.0.0.1:5000/exercises/${exercise_id}`, exercise)
